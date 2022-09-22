@@ -47,7 +47,7 @@ class Graph {
   removeVertex(vertex) {
     vertex.adjacent.forEach(node => {
       node.adjacent.delete(vertex);
-    })
+    });
     this.nodes.delete(vertex);
   }
 
@@ -57,27 +57,52 @@ class Graph {
     let currentStack = [start];
     let seen = new Set(currentStack);
     let nodeVals = [];
-    debugger;
-    while (currentStack.length !== 0){
+
+    while (currentStack.length !== 0) {
       let currNode = currentStack.pop();
       nodeVals.push(currNode.value);
-      debugger;
-      for (let node of currNode.adjacent){
-          debugger;
-          if (!seen.has(node)) {
-            seen.add(node);
-            currentStack.push(node);
-          }
+
+      for (let node of currNode.adjacent) {
+        if (!seen.has(node)) {
+          seen.add(node);
+          currentStack.push(node);
         }
       }
-      return nodeVals;
+    }
+    return nodeVals;
   }
 
   /** traverse graph with BDS and returns array of Node values */
-  breadthFirstSearch(start) { }
+  breadthFirstSearch(start) {
+
+    let currentQueue = [start];
+    let seen = new Set(currentQueue.value);
+
+    while (currentQueue.length !== 0) {
+      let currNode = currentQueue.shift();
+
+      for (let node of currNode.adjacent) {
+        if (!seen.has(node.value)) {
+          seen.add(node.value);
+          currentQueue.push(node);
+        }
+      }
+    }
+
+    return Array.from(seen);
+  }
 
   /** find the distance of the shortest path from the start vertex to the end vertex */
-  distanceOfShortestPath(start, end) { }
+  distanceOfShortestPath(start, end) {
+    if ()
+
+
+
+
+    let min = Math.min
+
+    return min;
+  }
 }
 
 module.exports = { Graph, Node };
