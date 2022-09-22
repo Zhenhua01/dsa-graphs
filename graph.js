@@ -93,17 +93,50 @@ class Graph {
   }
 
   /** find the distance of the shortest path from the start vertex to the end vertex */
-  distanceOfShortestPath(start, end, val) {
-    let seen = new Set(currentStack.value)
-    let shortestPath = [];
+  distanceOfShortestPath(start, end) {
 
-    if (start.value === end.value) return val +1;
-    if (start.adjacent.length === 0 || ) return Infinity;
+    let currentQueue = [start];
+    let seen = new Set(currentQueue.value);
+    let path = [];
+    let count = 0;
 
-    for (let node of start.adjacent){
-        if ( !seen.has(node.value)) distanceOfShortestPath(node,end,val+1);
+    while (currentQueue.length !== 0) {
+
+      let currNode = currentQueue.shift();
+
+      if (!currentQueue.includes(currNode)){
+        count++;
+      }
+
+      for (let node of currNode.adjacent) {
+        if (node.value === end.value) {
+          path.push(count);
+        };
+
+        if (!seen.has(node.value)) {
+          seen.add(node.value);
+          currentQueue.push(node);
+        }
+      }
     }
-    return Math.min(shortestPath)
+    console.log(path);
+    return Math.min(...path);
+
+    // Queue (I <- T <- H) <- M
+    // seen R -> I -> T-> H
+    // currNode R
+    // path []:
+    // count: 3
+
+    // if (start.value === end.value) return path.push(val);
+    // for (let node of start.adjacent) {
+    //   if (!seen.has(node.value)) {
+    //     seen.add(node.value);
+    //     path.push(
+    //       this.distanceOfShortestPath(node, end, val, seen, path) + 1 );
+    //   }
+    // }
+    // return Math.min(...path);
   }
 }
 
