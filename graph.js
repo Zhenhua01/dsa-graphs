@@ -44,10 +44,34 @@ class Graph {
    * - remove it from nodes property of graph
    * - update any adjacency lists using that vertex
    */
-  removeVertex(vertex) { }
+  removeVertex(vertex) {
+    vertex.adjacent.forEach(node => {
+      node.adjacent.delete(vertex);
+    })
+    this.nodes.delete(vertex);
+  }
 
   /** traverse graph with DFS and returns array of Node values */
-  depthFirstSearch(start) { }
+  depthFirstSearch(start) {
+
+    let currentStack = [start];
+    let seen = new Set(currentStack);
+    let nodeVals = [];
+    debugger;
+    while (currentStack.length !== 0){
+      let currNode = currentStack.pop();
+      nodeVals.push(currNode.value);
+      debugger;
+      for (let node of currNode.adjacent){
+          debugger;
+          if (!seen.has(node)) {
+            seen.add(node);
+            currentStack.push(node);
+          }
+        }
+      }
+      return nodeVals;
+  }
 
   /** traverse graph with BDS and returns array of Node values */
   breadthFirstSearch(start) { }
