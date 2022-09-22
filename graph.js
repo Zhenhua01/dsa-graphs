@@ -93,15 +93,17 @@ class Graph {
   }
 
   /** find the distance of the shortest path from the start vertex to the end vertex */
-  distanceOfShortestPath(start, end) {
-    if ()
+  distanceOfShortestPath(start, end, val) {
+    let seen = new Set(currentStack.value)
+    let shortestPath = [];
 
+    if (start.value === end.value) return val +1;
+    if (start.adjacent.length === 0 || ) return Infinity;
 
-
-
-    let min = Math.min
-
-    return min;
+    for (let node of start.adjacent){
+        if ( !seen.has(node.value)) distanceOfShortestPath(node,end,val+1);
+    }
+    return Math.min(shortestPath)
   }
 }
 
