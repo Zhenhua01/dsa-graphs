@@ -94,40 +94,67 @@ class Graph {
 
   /** find the distance of the shortest path from the start vertex to the end vertex */
   distanceOfShortestPath(start, end) {
+    //SOLUTION
+    if (start === end) return 0
 
-    let currentQueue = [start];
+    let currentQueue = [[start,0]];
     let seen = new Set(currentQueue.value);
-    let path = [];
-    let count = 0;
 
     while (currentQueue.length !== 0) {
 
-      let currNode = currentQueue.shift();
-
-      if (!currentQueue.includes(currNode)){
-        count++;
-      }
+      let [currNode, count] = currentQueue.shift();
 
       for (let node of currNode.adjacent) {
-        if (node.value === end.value) {
-          path.push(count);
+
+        if (currNode === end) {
+          return count;
         };
 
         if (!seen.has(node.value)) {
           seen.add(node.value);
-          currentQueue.push(node);
+          currentQueue.push([node,count + 1]);
         }
       }
     }
-    console.log(path);
-    return Math.min(...path);
+  }
 
-    // Queue (I <- T <- H) <- M
-    // seen R -> I -> T-> H
-    // currNode R
+
+
+    // ATTEMPT 2
+    // let currentQueue = [start];
+    // let seen = new Set(currentQueue.value);
+
+    // let count = 0;
+
+    // while (currentQueue.length !== 0) {
+
+    //   let currNode = currentQueue.shift();
+    //   let nextLevel = Array.from(currNode.adjacent);
+
+    //   for (let node of currNode.adjacent) {
+    //     if (node === nextLevel[0]){
+    //       count++
+    //     };
+    //     if (node.value === end.value) {
+    //       return count;
+    //     };
+
+    //     if (!seen.has(node.value)) {
+    //       seen.add(node.value);
+    //       currentQueue.push(node);
+    //     }
+    //   }
+    // }
+    // return count;
+
+    // CurrQueue
+    // seen R I T H
+    // currNode H
     // path []:
-    // count: 3
+    // count:
 
+
+    // ATTEMPT 1
     // if (start.value === end.value) return path.push(val);
     // for (let node of start.adjacent) {
     //   if (!seen.has(node.value)) {
@@ -137,7 +164,7 @@ class Graph {
     //   }
     // }
     // return Math.min(...path);
-  }
+
 }
 
 module.exports = { Graph, Node };
